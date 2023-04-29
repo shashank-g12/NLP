@@ -1,0 +1,34 @@
+collaboration: Sangam kumar(2022AIB2671), Brajraj Nagar(2022AIB2682), Swaransh Patel(2022AIB2678)
+
+Used a train_test_split to split the train.csv file into 80% train_set and 20% val_set with stratified sampling argument set. Didn't use cross validation.
+
+The base algorithm:
+ I used naive bayes as the base algorithm with a count vectorizer. Got 50% as average of f1_micro and f1_macro scores for the base model
+ Tried preprocessing by removing punctuation, stop words, converting text to lower case and lemmatizing the words but the evaluation metric for the model went down.
+ Tried to improve it using vader lexicons by adding extra features such as 'no of positive lexicons in the review' and 'no of negative lexicons in the review'. This also did not increase the evaluation metric.
+ Later tried various arguments with count vectorizer and then settled on taking only top 5000 features(ranked in frequency high to low) and using unigrams with bigrams as these strategies improved evaluation metric.
+
+ The best evaluation metric acheived using naive bayes algorithm was 53.35% using preprocessing(only removing punctuation and transforming text to lower case) and max features and unigrams with bigrams as features.
+
+ The confustion matrix of the validation set using the above parameters is as follows:
+ array([[   28,    62,    32,    15,    13],
+       [   31,   155,   152,    45,    14],
+       [   56,   243,   615,   408,   172],
+       [   71,   197,  1061,  3709,  2412],
+       [   53,   111,   464,  3473, 13340]])
+
+ Upon inspecting the confusion metric, we can notice that prediction gets worse as the rating for the review decreases as most 1 star rated reviews are predicted as 2 star and 2 star rated reviews as 3 star.
+ This can be due to the indepence assumption of the naive bayes algorithm.
+
+Logistic regression:
+ The best evaluation metric of 55.31% was acheived when using count vectorizer with only top 4000 features and using unigrams with bigrams. l2 regularization was also used and max iterations of the logistic regression algorithm  was set to 1000.
+ The confusion matrix is as follows:
+ array([[   22,    33,    29,    26,    40],
+       [   21,    74,   113,   104,    85],
+       [   20,    93,   354,   640,   387],
+       [   15,    71,   370,  2960,  4034],
+       [    7,    17,    92,  1640, 15685]])
+ we can see that logistic has more correct reviews for the 5 star rating reviews, but the prediction for other ratings are skewed towards 5 star rating.
+
+ I tried using SVM and random forest but SVM was taking too long to run whereas random forest was not giving satisfactory results.
+ CountVectorizer always gave better results than Tfidf vectorizer for all cases mentioned above.
