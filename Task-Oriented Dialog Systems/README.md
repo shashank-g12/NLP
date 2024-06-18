@@ -12,11 +12,14 @@
 
 - finetune the model by using the command
 ```
-bash run_model.sh train train.jsonl dev.jsonl
+bash run_model.sh train <train-file> <val-file>
 ```
-
+    - `<train-file>`: A jsonl file containing the user input and the parsed output
+    - `<val-file>`: A jsonl file containing the user input and the parsed output
+    
 - Predict the output for the test set using the command
 ```
-bash run_model.sh test sample_test.jsonl outfile.txt
+bash run_model.sh test <test-file> outfile.txt
 ```
+
 This generates a file `outfile.txt` which contains the predicted output.
