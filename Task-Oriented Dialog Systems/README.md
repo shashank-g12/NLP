@@ -22,5 +22,6 @@ bash run_model.sh train <train-file> <val-file>
 ```
 bash run_model.sh test <test-file> outfile.txt
 ```
+- `<test-file>`: A jsonl file containing the user input
 
 This generates a file `outfile.txt` which contains the predicted output.
